@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState, type SetStateAction } from "react";
 import type { IProducts } from "../types/productsTypes";
 import axios from "axios";
-import { ColorRing } from "react-loader-spinner";
 import Card from "../Components/Card/Card";
 import { SearchContext } from "./Dashboard";
 import { Link } from "react-router-dom";
 import { IoCreate } from "react-icons/io5";
+import { BounceLoader } from "react-spinners";
 
 const ListItems = () => {
   const [items, setItems] = useState<IProducts[]>();
@@ -48,14 +48,12 @@ const ListItems = () => {
         }
       >
         {loading ? (
-          <ColorRing
-            visible={true}
-            height="80"
-            width="80"
-            ariaLabel="color-ring-loading"
-            wrapperStyle={{}}
-            wrapperClass="color-ring-wrapper"
-            colors={["#849b87", "#849b87", "#849b87", "#849b87", "#849b87"]}
+          <BounceLoader
+            color="oklch(29.3% 0.066 243.157)"
+            loading={loading}
+            size={100}
+            aria-label="Loading Spinner"
+            data-testid="loader"
           />
         ) : (
           items
