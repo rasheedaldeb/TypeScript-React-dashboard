@@ -128,7 +128,9 @@ const ItemForm = ({ type, id, image, name, price }: ItemsFormProps) => {
           onChange={(e) =>
             setCreateItem({
               ...createItem,
-              image_url: e.target.files?.[0],
+              image_url: e.target.files?.[0]
+                ? URL.createObjectURL(e.target.files[0])
+                : undefined,
             })
           }
         />
