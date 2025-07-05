@@ -20,34 +20,37 @@ const LogIn = () => {
   }, [data]);
   const logIn = async () => {
     setLogInLoading(true);
-    await fetch("https://vica.website/api/login", {
+    const response = await fetch("https://vica.website/api/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
-        localStorage.setItem("token", res.token);
-        localStorage.setItem("user", JSON.stringify(res.user));
-        toast.success("Logged In Successfuly");
-        setTimeout(() => {
-          if (res.token && res.token !== undefined) {
-            navigate("/dashboard");
-          }
-        }, 500);
-        setLogInLoading(false);
-      })
-      .catch((err) => {
-        console.error("Login error:", err);
-        const errorMessage =
-          err.response?.msg || err.msg || "Login failed. Please try again.";
-        toast.error(errorMessage);
-        setLogInLoading(false);
-      });
+    });
+
+    const result = await response.json();
+    console.log("Response:", result);
+
+    if (!response.ok) {
+      // Handle error response
+      const errorMessage =
+        result.msg || result.message || "Login failed. Please try again.";
+      toast.error(errorMessage);
+      setLogInLoading(false);
+      return;
+    }
+
+    // Handle success response
+    localStorage.setItem("token", result.token);
+    localStorage.setItem("user", JSON.stringify(result.user));
+    toast.success("Logged In Successfuly");
+    setTimeout(() => {
+      if (result.token && result.token !== undefined) {
+        navigate("/dashboard");
+      }
+    }, 500);
+    setLogInLoading(false);
   };
   const inputsArr = [
     {
