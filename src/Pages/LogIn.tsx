@@ -42,7 +42,7 @@ const LogIn = () => {
         setLogInLoading(false);
       })
       .catch((err) => {
-        toast.error(err.msg);
+        toast.error(err.response.msg);
         setLogInLoading(false);
       });
   };
