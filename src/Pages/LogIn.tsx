@@ -35,13 +35,15 @@ const LogIn = () => {
         localStorage.setItem("user", JSON.stringify(res.user));
         toast.success("Logged In Successfuly");
         setTimeout(() => {
-          if (localStorage.getItem("token")) {
+          if (localStorage.getItem("token") !== undefined) {
             navigate("/dashboard");
           }
         }, 1000);
         setLogInLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        toast.error(err.msg);
+      });
   };
   const inputsArr = [
     {
