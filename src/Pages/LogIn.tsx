@@ -43,6 +43,7 @@ const LogIn = () => {
       })
       .catch((err) => {
         toast.error(err.msg);
+        setLogInLoading(false);
       });
   };
   const inputsArr = [
