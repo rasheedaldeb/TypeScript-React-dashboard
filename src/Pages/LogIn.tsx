@@ -42,7 +42,10 @@ const LogIn = () => {
         setLogInLoading(false);
       })
       .catch((err) => {
-        toast.error(err.response.msg);
+        console.error("Login error:", err);
+        const errorMessage =
+          err.response?.msg || err.message || "Login failed. Please try again.";
+        toast.error(errorMessage);
         setLogInLoading(false);
       });
   };
