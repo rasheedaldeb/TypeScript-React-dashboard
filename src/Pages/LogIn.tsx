@@ -34,11 +34,9 @@ const LogIn = () => {
         localStorage.setItem("token", res.token);
         localStorage.setItem("user", JSON.stringify(res.user));
         toast.success("Logged In Successfuly");
-        setTimeout(() => {
-          if (localStorage.getItem("token") !== undefined) {
-            navigate("/dashboard");
-          }
-        }, 1000);
+        if (localStorage.getItem("token") != undefined) {
+          navigate("/dashboard");
+        }
         setLogInLoading(false);
       })
       .catch((err) => {
